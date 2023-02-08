@@ -14,30 +14,7 @@
 5. Start project with command ``` yarn dev ``` or ``` yarn build & yarn start ```
 
 ### Environment variables (.env)
-PORT= * - Service port
 
-SERVER_HOST= * - Service hostname
+1. Check file ``` <root>/src/configs/config.ts ```
 
-SERVICE_NAME= * - Service name (for logging)
-
-DB_USER= * - Database username
-
-DB_USER_PASS= * - Database user password
-
-DB_HOST= * - Database hostname
-
-DB_PORT= * - Database port
-
-DB_NAME= * - Database name
-
-DB_DIALECT= * - Database dialect (postgres / mysql / and other... )
-
-DATABASE_URL= * - Database full url (postgres://admin:admin@database_host:port/database_name)
-
-HASH_SALT= * - Some number for hashing user password
-
-JWT_SECRET= * - Some string for create JWT token
-
-JWT_REFRESH_SECRET= * - Some string for create JWT refresh token
-
-COOKIE_SECRET= * - Some string for cookies
+2. You need describe all configs :)
