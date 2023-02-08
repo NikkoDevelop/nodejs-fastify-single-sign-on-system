@@ -7,7 +7,6 @@ export const DB_HOST = '';
 export const DB_PORT = '';
 export const DB_NAME = '';
 export const DB_DIALECT = '';
-export const DB_LOGGING = '';
 
 export const HASH_SALT = '';
 export const JWT_SECRET = '';

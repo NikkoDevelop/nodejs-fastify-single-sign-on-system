@@ -25,19 +25,8 @@ export const DATABASE_PORT = process.env.DATABASE_PORT as string || DB_PORT;
 export const DATABASE_HOST = process.env.DATABASE_HOST as string || DB_HOST;
 export const DATABASE_USER = process.env.DATABASE_USER as string || DB_USER;
 export const DATABASE_USER_PASS = process.env.DATABASE_USER_PASS as string || DB_USER_PASS;
-export const DATABASE_LOGGING = process.env.DATABASE_LOGGING as string || DB_LOGGING;
 
 export const PASS_HASH_SALT = process.env.HASH_SALT as string || HASH_SALT;
 export const JWT_SECRET_SALT = process.env.JWT_SECRET as string || JWT_SECRET;
 export const JWT_REFRESH_SALT = process.env.JWT_REFRESH_SECRET as string || JWT_REFRESH_SECRET;
 export const COOKIE_SECRET_SALT = process.env.COOKIE_SECRET as string || COOKIE_SECRET;
-
-export const AUTH_GOOGLE_CLIENT_ID = process.env.AUTH_GOOGLE_CLIENT_ID as string;
-export const AUTH_GOOGLE_CLIENT_SECRET = process.env.AUTH_GOOGLE_CLIENT_SECRET as string;
-export const AUTH_GOOGLE_REDIRECT_URL = process.env.AUTH_GOOGLE_REDIRECT_URL as string;
-export const AUTH_YANDEX_CLIENT_ID = process.env.AUTH_YANDEX_CLIENT_ID as string;
-export const AUTH_YANDEX_CLIENT_SECRET = process.env.AUTH_YANDEX_CLIENT_SECRET as string;
-export const AUTH_YANDEX_REDIRECT_URL = process.env.AUTH_YANDEX_REDIRECT_URL as string;
-export const AUTH_VK_CLIENT_ID = process.env.AUTH_VK_CLIENT_ID as string;
-export const AUTH_VK_CLIENT_SECRET = process.env.AUTH_VK_CLIENT_SECRET as string;
-export const AUTH_VK_REDIRECT_URL = process.env.AUTH_VK_REDIRECT_URL as string;
