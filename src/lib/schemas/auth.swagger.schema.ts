@@ -7,50 +7,50 @@ export const RegisterSchema: FastifySchema = {
     type: 'object',
     properties: {
       email: {
-        type: 'string',
+        type: 'string'
       },
       password: {
-        type: 'string',
-      },
+        type: 'string'
+      }
     },
-    required: ['email', 'password'],
+    required: ['email', 'password']
   },
   response: {
     400: {
       description: 'Failed response',
-      type: 'string',
+      type: 'string'
     },
     201: {
-      description: 'Succesfully response',
+      description: 'Success response',
       type: 'object',
       properties: {
         token: {
-          type: 'string',
+          type: 'string'
         },
         user: {
           type: 'object',
           properties: {
             id: {
-              type: 'string',
+              type: 'string'
             },
             tokenVersion: {
-              type: 'number',
+              type: 'number'
             },
             name: {
-              type: 'string',
+              type: 'string'
             },
             email: {
-              type: 'string',
+              type: 'string'
             },
             passwordHash: {
-              type: 'string',
-            },
-          },
-        },
-      },
+              type: 'string'
+            }
+          }
+        }
+      }
 
-    },
-  },
+    }
+  }
 };
 
 export const LoginSchema: FastifySchema = {
@@ -60,47 +60,47 @@ export const LoginSchema: FastifySchema = {
     type: 'object',
     properties: {
       email: {
-        type: 'string',
+        type: 'string'
       },
       password: {
-        type: 'string',
-      },
+        type: 'string'
+      }
     },
-    required: ['email', 'password'],
+    required: ['email', 'password']
   },
   response: {
     400: {
       description: 'Failed response',
-      type: 'string',
+      type: 'string'
     },
     200: {
-      description: 'Succesfully response',
+      description: 'Success response',
       type: 'object',
       properties: {
         token: {
-          type: 'string',
+          type: 'string'
         },
         user: {
           type: 'object',
           properties: {
             id: {
-              type: 'string',
+              type: 'string'
             },
             tokenVersion: {
-              type: 'number',
+              type: 'number'
             },
             name: {
-              type: 'string',
+              type: 'string'
             },
             email: {
-              type: 'string',
+              type: 'string'
             },
             passwordHash: {
-              type: 'string',
-            },
-          },
-        },
-      },
-    },
-  },
+              type: 'string'
+            }
+          }
+        }
+      }
+    }
+  }
 };

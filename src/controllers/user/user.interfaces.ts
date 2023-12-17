@@ -6,15 +6,11 @@ export interface IUser {
   passwordHash: string;
 }
 
-// Determinate methods
-
 export interface IUserRepository {
   createUserDatabaseEntry(data: ICreateUserDTO): Promise<IUserPayload | null>;
   updateUserDatabaseEntry(data: IUpdateUserDTO): Promise<IUser | null>;
-  deleteUserDatabaseEntry(data: IDeleteUserDTO): Promise<string | null>;
+  deleteUserDatabaseEntry(data: IDeleteUserDTO): Promise<null | string>;
 }
-
-// User Repository interfaces
 
 export interface ICreateUserDTO {
   email: string;
@@ -23,7 +19,7 @@ export interface ICreateUserDTO {
 
 export interface IUpdateUserDTO {
   id: string;
-  action: 'ChangePassword' | 'ChangeEmail';
+  action: 'ChangeEmail' | 'ChangePassword';
   email?: string;
   password?: string;
 }
@@ -32,13 +28,9 @@ export interface IDeleteUserDTO {
   id: string;
 }
 
-// User Controller interfaces
-
 export interface ICheckUserDTO {
   token: string
 }
-
-// Authenticate system interfaces
 
 export interface IUserPayload {
   token: string;

@@ -1,16 +1,17 @@
 import { Sequelize } from 'sequelize';
-import { DATABASE_URL } from '../configs/config';
 
-const sequelize = new Sequelize(DATABASE_URL, {
+import { getDatabaseUrl } from './instance';
+
+const sequelize = new Sequelize(getDatabaseUrl(), {
   timezone: '+00:00',
   define: {
-    timestamps: false,
-  },
+    timestamps: false
+  }
 });
 
-const db = {
+const database = {
   sequelize,
-  Sequelize,
+  Sequelize
 };
 
-export default db;
+export default database;

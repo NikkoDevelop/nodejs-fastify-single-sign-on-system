@@ -1,28 +1,29 @@
-import fastify from 'fastify';
-import cors from '@fastify/cors';
 import type { FastifyCookieOptions } from '@fastify/cookie';
+
 import cookie from '@fastify/cookie';
+import cors from '@fastify/cors';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
+import fastify from 'fastify';
 
-import { COOKIE_SECRET_SALT, SERVER_HOST, SERVER_PORT } from './configs/config';
-import db from './database/databaseInstance';
+import { COOKIE_SECRET, SERVER_HOST, SERVER_PORT } from './configs';
+import database from './database/databaseInstance';
 import { syncModels } from './database/syncModels';
+import { swaggerOptions, swaggerUiOptions } from './lib/swagger';
 import { logger } from './logs/logger';
 import authRouter from './routes/auth.routes';
 import userRouter from './routes/user.routes';
-import { swaggerOptions, swaggerUiOptions } from './lib/swagger';
 
 const server = fastify();
 
 const whitelist: string[] = [
-  'http://localhost:3000',
+  'http://localhost:3000'
 ];
 
 (async () => {
   await server.register(cookie, {
-    secret: COOKIE_SECRET_SALT,
-    parseOptions: {},
+    secret: COOKIE_SECRET,
+    parseOptions: {}
   } as FastifyCookieOptions);
 
   await server.register(cors, {
@@ -34,18 +35,18 @@ const whitelist: string[] = [
       } else {
         callback(null, false);
       }
-    },
+    }
   });
 
   await server.register(fastifySwagger, swaggerOptions);
   await server.register(fastifySwaggerUi, swaggerUiOptions);
 
   await server.register(authRouter, {
-    prefix: '/sso/auth',
+    prefix: '/sso/auth'
   });
 
   await server.register(userRouter, {
-    prefix: '/sso/user',
+    prefix: '/sso/user'
   });
 
   await server.ready().then(() => {
@@ -57,7 +58,7 @@ const whitelist: string[] = [
 
 (async () => {
   try {
-    await db.sequelize.authenticate().then(() => {
+    await database.sequelize.authenticate().then(() => {
       logger.info('Connection has been established successfully.');
 
       syncModels();
@@ -75,7 +76,7 @@ const whitelist: string[] = [
 
     server.listen({
       port: Number(SERVER_PORT),
-      host: SERVER_HOST,
+      host: SERVER_HOST
     }, (err) => {
       if (err) {
         logger.error(err?.stack);

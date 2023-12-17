@@ -1,19 +1,26 @@
-import isEmail from 'isemail';
 import bcrypt from 'bcrypt';
+import isEmail from 'isemail';
 
+import { HASH_SALT } from '../../configs';
 import { UserModel } from '../../database/models/models';
 import { createToken } from '../../integrations/jwt/jwt';
 import { logger } from '../../logs/logger';
-import { PASS_HASH_SALT } from '../../configs/config';
-import { ICreateUserDTO, IDeleteUserDTO, IUpdateUserDTO, IUser, IUserPayload, IUserRepository } from './user.interfaces';
+import {
+  ICreateUserDTO,
+  IDeleteUserDTO,
+  IUpdateUserDTO,
+  IUser,
+  IUserPayload,
+  IUserRepository
+} from './user.interfaces';
 
 export const UserRepository: IUserRepository = {
   async createUserDatabaseEntry (data: ICreateUserDTO): Promise<IUserPayload | null> {
     try {
       const existingUser = await UserModel.findOne({
         where: {
-          email: data.email,
-        },
+          email: data.email
+        }
       });
 
       if (existingUser) {
@@ -26,7 +33,7 @@ export const UserRepository: IUserRepository = {
 
       const newUser = await UserModel.create({
         email: data.email,
-        passwordHash: data.password,
+        passwordHash: data.password
       });
 
       const token = createToken(newUser.dataValues as IUser);
@@ -35,7 +42,7 @@ export const UserRepository: IUserRepository = {
 
       return {
         token,
-        user: newUser.dataValues as IUser,
+        user: newUser.dataValues as IUser
       };
     } catch (error) {
       logger.error(`User create has error: ${error}`);
@@ -48,47 +55,47 @@ export const UserRepository: IUserRepository = {
     try {
       const user = await UserModel.findOne({
         where: {
-          id: data.id,
-        },
+          id: data.id
+        }
       });
 
       if (!user) {
-        logger.warn('User is not finded');
+        logger.warn('User is not found');
 
         return null;
       }
 
       switch (data.action) {
-        case 'ChangeEmail':
-          if (data.email) {
-            await user.set({
-              email: data.email,
-            });
+      case 'ChangeEmail':
+        if (data.email) {
+          await user.set({
+            email: data.email
+          });
 
-            await user.save();
+          await user.save();
 
-            return user as IUser;
-          }
-          return null;
+          return user as IUser;
+        }
+        return null;
 
-        case 'ChangePassword':
-          if (data.password) {
-            const hashedPassword = await bcrypt.hash(data.password, PASS_HASH_SALT);
+      case 'ChangePassword':
+        if (data.password) {
+          const hashedPassword = await bcrypt.hash(data.password, HASH_SALT);
 
-            user.set({
-              passwordHash: hashedPassword,
-            });
+          user.set({
+            passwordHash: hashedPassword
+          });
 
-            await user.save();
+          await user.save();
 
-            return user as IUser;
-          }
-          return null;
+          return user as IUser;
+        }
+        return null;
 
-        default:
-          logger.error('User update has error');
+      default:
+        logger.error('User update has error');
 
-          return null;
+        return null;
       }
     } catch (error) {
       logger.error(`User update has error: ${error}`);
@@ -97,18 +104,18 @@ export const UserRepository: IUserRepository = {
     }
   },
 
-  async deleteUserDatabaseEntry (data: IDeleteUserDTO): Promise<string | null> {
+  async deleteUserDatabaseEntry (data: IDeleteUserDTO): Promise<null | string> {
     try {
       const user = await UserModel.findOne({
         where: {
-          id: data.id,
-        },
+          id: data.id
+        }
       });
 
       if (!user) {
-        logger.warn('User is not finded');
+        logger.warn('User is not found');
 
-        return 'User is not finded';
+        return 'User is not found';
       }
 
       user.destroy();
@@ -119,5 +126,5 @@ export const UserRepository: IUserRepository = {
 
       return null;
     }
-  },
+  }
 };

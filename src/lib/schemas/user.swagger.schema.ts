@@ -7,54 +7,54 @@ export const UserUpdateSchema: FastifySchema = {
     type: 'object',
     properties: {
       id: {
-        type: 'string',
+        type: 'string'
       },
       action: {
         type: 'string',
-        enum: ['ChangePassword', 'ChangeEmail'],
+        enum: ['ChangePassword', 'ChangeEmail']
       },
       email: {
-        type: 'string',
+        type: 'string'
       },
       password: {
-        type: 'string',
-      },
+        type: 'string'
+      }
     },
-    required: ['id', 'action'],
+    required: ['id', 'action']
   },
   response: {
     400: {
       description: 'Failed response',
-      type: 'string',
+      type: 'string'
     },
     201: {
-      description: 'Succesfully response',
+      description: 'Success response',
       type: 'object',
       properties: {
         user: {
           type: 'object',
           properties: {
             id: {
-              type: 'string',
+              type: 'string'
             },
             tokenVersion: {
-              type: 'number',
+              type: 'number'
             },
             name: {
-              type: 'string',
+              type: 'string'
             },
             email: {
-              type: 'string',
+              type: 'string'
             },
             passwordHash: {
-              type: 'string',
-            },
-          },
-        },
-      },
+              type: 'string'
+            }
+          }
+        }
+      }
 
-    },
-  },
+    }
+  }
 };
 
 export const UserDeleteSchema: FastifySchema = {
@@ -64,21 +64,21 @@ export const UserDeleteSchema: FastifySchema = {
     type: 'object',
     properties: {
       id: {
-        type: 'string',
-      },
+        type: 'string'
+      }
     },
-    required: ['id'],
+    required: ['id']
   },
   response: {
     400: {
       description: 'Failed response',
-      type: 'string',
+      type: 'string'
     },
     200: {
-      description: 'Succesfully response',
-      type: 'string',
-    },
-  },
+      description: 'Success response',
+      type: 'string'
+    }
+  }
 };
 
 export const UserCheckSchema: FastifySchema = {
@@ -88,36 +88,36 @@ export const UserCheckSchema: FastifySchema = {
     type: 'object',
     properties: {
       token: {
-        type: 'string',
-      },
+        type: 'string'
+      }
     },
-    required: ['token'],
+    required: ['token']
   },
   response: {
     400: {
       description: 'Failed response',
-      type: 'string',
+      type: 'string'
     },
     200: {
-      description: 'Succesfully response',
+      description: 'Success response',
       type: 'object',
       properties: {
         id: {
-          type: 'string',
+          type: 'string'
         },
         tokenVersion: {
-          type: 'number',
+          type: 'number'
         },
         name: {
-          type: 'string',
+          type: 'string'
         },
         email: {
-          type: 'string',
+          type: 'string'
         },
         passwordHash: {
-          type: 'string',
-        },
-      },
-    },
-  },
+          type: 'string'
+        }
+      }
+    }
+  }
 };

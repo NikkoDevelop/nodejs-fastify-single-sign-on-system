@@ -1,5 +1,6 @@
 import { CreationOptional, DataTypes, InferAttributes, InferCreationAttributes, Model } from 'sequelize';
-import db from '../databaseInstance';
+
+import database from '../databaseInstance';
 
 interface IUserModel extends Model<InferAttributes<IUserModel>, InferCreationAttributes<IUserModel>> {
   id?: CreationOptional<string>
@@ -9,40 +10,40 @@ interface IUserModel extends Model<InferAttributes<IUserModel>, InferCreationAtt
   passwordHash?: string,
 }
 
-const User = db.sequelize.define<IUserModel>('User', {
+const User = database.sequelize.define<IUserModel>('User', {
   id: {
     type: DataTypes.UUID,
     allowNull: false,
     unique: true,
     primaryKey: true,
     defaultValue: DataTypes.UUIDV4,
-    field: 'UserID',
+    field: 'UserID'
   },
   tokenVersion: {
     type: DataTypes.INTEGER,
     allowNull: true,
-    field: 'TokenVersion',
+    field: 'TokenVersion'
   },
   name: {
     type: DataTypes.STRING(128),
     allowNull: true,
     unique: true,
-    field: 'Name',
+    field: 'Name'
   },
   email: {
     type: DataTypes.STRING(128),
     allowNull: false,
     unique: true,
-    field: 'Email',
+    field: 'Email'
   },
   passwordHash: {
     type: DataTypes.STRING(72),
     allowNull: true,
-    field: 'PasswordHash',
-  },
+    field: 'PasswordHash'
+  }
 }, {
   timestamps: false,
-  modelName: 'User',
+  modelName: 'User'
 });
 
 export default User;

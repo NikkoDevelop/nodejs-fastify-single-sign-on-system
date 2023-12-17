@@ -1,0 +1,12 @@
+import {
+  DATABASE_DIALECT,
+  DATABASE_HOST,
+  DATABASE_NAME,
+  DATABASE_PORT,
+  DATABASE_USER,
+  DATABASE_USER_PASS
+} from '../configs';
+
+export const getDatabaseUrl = (): string => {
+  return `${DATABASE_DIALECT}://${DATABASE_USER}:${DATABASE_USER_PASS}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}`;
+};

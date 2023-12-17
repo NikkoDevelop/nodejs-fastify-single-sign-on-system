@@ -1,19 +1,27 @@
-import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { JWT_SECRET_SALT } from '../../configs/config';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+
+import { JWT_SECRET } from '../../configs';
 import { UserModel } from '../../database/models/models';
 import { createToken } from '../../integrations/jwt/jwt';
-import { ICheckUserDTO, IDeleteUserDTO, IUpdateUserDTO, IUser, IUserInsideServiceAuthData, IUserPayload } from './user.interfaces';
+import {
+  ICheckUserDTO,
+  IDeleteUserDTO,
+  IUpdateUserDTO,
+  IUser,
+  IUserInsideServiceAuthData,
+  IUserPayload
+} from './user.interfaces';
 import { UserRepository } from './user.repository';
 
 export const getToken = (user: IUser): string => {
   return jwt.sign({
     email: user.email,
-    sub: user.id,
-  }, JWT_SECRET_SALT, {
+    sub: user.id
+  }, JWT_SECRET, {
     expiresIn: '24h',
-    algorithm: 'HS256',
+    algorithm: 'HS256'
   });
 };
 
@@ -23,7 +31,11 @@ export const findUserByToken = async (authorization: string): Promise<IUser | nu
   }
 
   try {
-    const token: any = jwt.verify(authorization.replace('Bearer ', ''), JWT_SECRET_SALT);
+    const token: JwtPayload | string = jwt.verify(authorization.replace('Bearer ', ''), JWT_SECRET);
+
+    if (typeof token === 'string') {
+      return null;
+    }
 
     if (!token.userId) {
       return null;
@@ -40,8 +52,8 @@ export const insideServiceSignInUser = async (data: IUserInsideServiceAuthData):
   try {
     const user = await UserModel.findOne({
       where: {
-        email: data.email,
-      },
+        email: data.email
+      }
     }) as IUser;
 
     if (!user) {
@@ -73,7 +85,7 @@ export const checkUserController = async (req: FastifyRequest<{ Body: ICheckUser
     const payload = await findUserByToken(body.token);
 
     if (payload === null) {
-      reply.status(400).send('Error! User is not finded');
+      reply.status(400).send('Error! User is not found');
     }
 
     reply.status(200).send(payload);
